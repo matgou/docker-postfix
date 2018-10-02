@@ -74,3 +74,4 @@ virtual_uid_maps = static:1002
 # and group id
 virtual_gid_maps = static:1002
 lmtp_host_lookup = native
+smtp_host_lookup = native, dns
