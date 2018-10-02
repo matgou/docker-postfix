@@ -31,6 +31,7 @@ then
 	echo "please complete MAIL_HOST environnement variable"
 	exit 255
 fi
+dovecot_ip=$( getent ahosts dovecot | awk '{ print $1 }' | head -1 )
 
 find /etc/postfix/ -type f | while read fic
 do  
@@ -41,11 +42,11 @@ do
         sed -i "s/@@MYSQL_PASSWORD@@/$MYSQL_PASSWORD/g" $fic
         sed -i "s/@@MYSQL_PORT@@/$MYSQL_PORT/g" $fic
         sed -i "s:@@SSL_DIR@@:$SSL_DIR:g" $fic
+        sed -i "s:@@DOVECOT_IP@@:$dovecot_ip:g" $fic
 done
 
 sed -i "s:/var/log/mail:/var/log/postfix/mail:g" /etc/rsyslog.conf
 
-dovecot_ip=$( getent ahosts dovecot | awk '{ print $1 }' | head -1 )
 
 # Create spool directory structure
 mkdir -p /var/spool/postfix/{active,bounce,corrupt,defer,deferred,dev,etc,flush,incoming,lib,maildrop,pid,private,public,saved,usr}
