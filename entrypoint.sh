@@ -59,6 +59,7 @@ sed -i "s:@@DOVECOT_IP@@:$dovecot_ip:" /etc/postfix/main.cf
 
 # If exist delete pid file
 rm /var/run/rsyslogd.pid
+rm /var/spool/postfix/pid/master.pid
 
 # Start rsyslogd
 /usr/sbin/rsyslogd &
